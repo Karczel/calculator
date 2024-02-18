@@ -92,7 +92,20 @@ class Calculator_UI(tk.Tk):
                 try:
                     # fix ^ to **
                     # replace functions in string with math. , look up math docs
-                    # replace
+                    # replace()
+                    if '^' in self.output.get():
+                        self.output.set(self.output.get().replace('^','**'))
+                    # if 'exp' in self.output.get():
+                    #     self.output.set(self.output.get().replace('exp', 'math.exp'))
+                    # if 'ln' in self.output.get():
+                    #     self.output.set(self.output.get().replace('ln', 'math.log'))
+                    # if 'log10' in self.output.get():
+                    #     self.output.set(self.output.get().replace('log10', 'math.log10'))
+                    # if 'log2' in self.output.get():
+                    #     self.output.set(self.output.get().replace('log2', 'math.log2'))
+                    # if 'sqrt' in self.output.get():
+                    #     self.output.set(self.output.get().replace('sqrt', 'math.pow'))
+
                     self.output.set(eval(self.output.get()))
                     self.display.config(text=self.output.get())
                     self.history.set(self.history.get()
