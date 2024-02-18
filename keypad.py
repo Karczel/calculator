@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 
 
 class Keypad(tk.Frame):
@@ -16,6 +15,7 @@ class Keypad(tk.Frame):
         rows as needed.
         :param columns: number of columns to use
         """
+        self.frame = super(Keypad, self)
         self.columns = columns
         self.rows = len(self.keynames) // self.columns
         i = 0
@@ -32,7 +32,6 @@ class Keypad(tk.Frame):
             self.rowconfigure(i, weight=1)
         for i in range(self.columns):
             self.columnconfigure(i, weight=1)
-        self.configure(background='blue')
 
     def bind(self, todo):
         """Bind an event handler to an event sequence."""
@@ -55,7 +54,7 @@ class Keypad(tk.Frame):
         Example: keypad['foreground'] would return 'red' if the button
         foreground color is 'red'.
         """
-        return self.button[0][key]
+        return self.buttons[0][key]
 
     def configure(self, cnf=None, **kwargs):
         """Apply configuration settings to all buttons.
@@ -63,8 +62,8 @@ class Keypad(tk.Frame):
         To configure properties of the frame that contains the buttons,
         use `keypad.frame.configure()`.
         """
-        self.frame = super(Keypad, self)
-        self.frame.configure(**kwargs)
+        for i in self.buttons:
+            i.config(**kwargs)
 
     # Write a property named 'frame' the returns a reference to
     # the superclass object for this keypad.
