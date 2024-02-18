@@ -59,7 +59,8 @@ class Calculator_UI(tk.Tk):
                 op_list = []
                 # detect ()
                 while i < len(output):
-                    # ()
+                    # () recursive if found (
+                    # if ) no leading ( is error
                     num_sub = ""
                     while output[i] not in op:
                         if i >= len(output) - 1:
