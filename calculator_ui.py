@@ -2,18 +2,21 @@
 import tkinter as tk
 from tkinter import ttk
 
-from keypad import Keypad
 from math import *
+from keypad import Keypad
 
 
 class Calculator_UI(tk.Tk):
+    """My Calculaotr UI"""
 
     def __init__(self):
+        """Initialize Calculator User Interface"""
         super().__init__()
         self.name = "Window"
         self.init_components()
 
     def init_components(self):
+        """init_components"""
         self.output = tk.StringVar()
         self.history = tk.StringVar()
 
@@ -52,6 +55,7 @@ class Calculator_UI(tk.Tk):
         self.frame_f.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
     def pad(self, keynames, columns, *args):
+        """simplifying Keypacs initializing method"""
         return Keypad(self, keynames=keynames, columns=columns)
 
     def load_functions(self, lst):
@@ -66,6 +70,7 @@ class Calculator_UI(tk.Tk):
         return selected, chooser
 
     def handle_features(self, event):
+        """"handle DEL, CLR buttons"""
         if event.widget.cget('text') == 'DEL':
             self.output.set(self.output.get()[:-1])
             self.display.config(text=self.output.get())
@@ -74,10 +79,12 @@ class Calculator_UI(tk.Tk):
             self.display.config(text=self.output.get())
 
     def handle_functions(self):
+        """handle functions in combobox"""
         self.output.set(self.output.get() + self.function.get())
         self.display.config(text=self.output.get())
 
     def handle_digit(self, event):
+        """handle numbers keypad and operators keypad"""
         if event.widget.cget('text') == '=':
             output = self.output.get()
             op = [i.cget('text') for i in self.operator_keypad.buttons]
@@ -109,6 +116,7 @@ class Calculator_UI(tk.Tk):
                 self.display.config(text=self.output.get())
 
     def add_history(self, *args):
+        """add buttons as history features"""
         button_frame = tk.Frame(self.frame_f)
         new_history = tk.Button(button_frame, text=self.history.get(), font=('Times New '
                                                                              'Roman', 20,
@@ -126,10 +134,12 @@ class Calculator_UI(tk.Tk):
         button_frame.pack(expand=True, fill=tk.X, anchor=tk.N)
 
     def handle_history(self, event):
+        """handle history buttons"""
         self.output.set(event.widget.cget('text'))
         self.display.config(text=self.output.get())
 
     def run(self):
+        """run UI"""
         self.mainloop()
 
     # ---if we were to not use eval()

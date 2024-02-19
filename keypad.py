@@ -1,9 +1,12 @@
+"""Keypad class"""
 import tkinter as tk
 
 
 class Keypad(tk.Frame):
+    """simplifying making keypads in Calculator UI"""
 
     def __init__(self, parent, keynames=[], columns=1, **kwargs):
+        """Initialize Keypad Frame"""
         super().__init__()
         self.keynames = keynames
         self.init_components(columns)
