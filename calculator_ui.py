@@ -34,8 +34,7 @@ class Calculator_UI(tk.Tk):
         self.function, self.functions_chooser = self.load_functions(['exp', 'ln', 'log10', 'log2', 'sqrt'])
         self.add_function = tk.Button(self.frame_f, text='Add', command=self.handle_functions)
         self.history_display = tk.Label(self.frame_f, text=self.output.get(), bg='white', justify="left", anchor='e',
-                                font=('Times New Roman', 20, 'normal'))
-
+                                        font=('Times New Roman', 20, 'normal'))
 
         # Layout within frame
         self.functions_chooser.pack()
@@ -89,19 +88,18 @@ class Calculator_UI(tk.Tk):
             if output[len(output) - 1] not in op \
                     and output[len(output) - 1] not in ['.']:
                 self.display.config(fg='black')
-                prev = self.output.get()
+                self.history.set(self.output.get())
                 try:
                     # fix ^ to **
                     if '^' in self.output.get():
-                        self.output.set(self.output.get().replace('^','**'))
+                        self.output.set(self.output.get().replace('^', '**'))
                     # fix ln to log
                     if 'ln' in self.output.get():
                         self.output.set(self.output.get().replace('ln', 'log'))
                     self.output.set(eval(self.output.get()))
                     self.display.config(text=self.output.get())
-                    self.history.set(self.history.get()
-                                     + prev + ' = ' + self.output.get()+'\n')
-                    self.history_display.config(text=self.history.get())
+                    # add history buttons
+                    self.add_history()
                 except SyntaxError:
                     self.display.config(fg='red')
             else:
@@ -112,6 +110,28 @@ class Calculator_UI(tk.Tk):
                 new_string = self.output.get() + event.widget.cget('text')
                 self.output.set(new_string)
                 self.display.config(text=self.output.get())
+
+    def add_history(self, *args):
+        button_frame = tk.Frame(self.frame_f)
+        new_history = tk.Button(button_frame, text=self.history.get(), font=('Times New '
+                                                                             'Roman', 20,
+                                                                             'normal'))
+        new_output_his = tk.Button(button_frame, text=self.output.get(), font=('Times New '
+                                                                               'Roman',
+                                                                               20,
+                                                                               'normal'))
+        new_history.bind('<Button>',self.handle_history)
+        new_output_his.bind('<Button>',self.handle_history)
+        equal_sign = tk.Label(button_frame, text='=', font=('Times New Roman', 20, 'normal'))
+        new_history.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        equal_sign.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        new_output_his.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+
+        button_frame.pack()
+
+    def handle_history(self, event):
+        self.output.set(event.widget.cget('text'))
+        self.display.config(text=self.output.get())
 
     def run(self):
         self.mainloop()
