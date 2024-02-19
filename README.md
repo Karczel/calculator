@@ -1,6 +1,5 @@
-# calculator
- My own calculator with Tkinter UI
+My own calculator with Tkinter UI
 
 UML
 
-![Calculator drawio](https://github.com/Karczel/calculator/assets/92095164/099d1fb4-bc5e-4363-9a12-115aa678ba99)
+![Calculator drawio](https://github.com/Karczel/calculator/assets/92095164/924e217d-8baa-44b7-8b37-8e1cda74ac98)# calculator
