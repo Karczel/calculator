@@ -85,27 +85,18 @@ class Calculator_UI(tk.Tk):
         if event.widget.cget('text') == '=':
             output = self.output.get()
             op = [i.cget('text') for i in self.operator_keypad.buttons]
+            op = op[:-2]
             if output[len(output) - 1] not in op \
                     and output[len(output) - 1] not in ['.']:
                 self.display.config(fg='black')
                 prev = self.output.get()
                 try:
                     # fix ^ to **
-                    # replace functions in string with math. , look up math docs
-                    # replace()
                     if '^' in self.output.get():
                         self.output.set(self.output.get().replace('^','**'))
-                    # if 'exp' in self.output.get():
-                    #     self.output.set(self.output.get().replace('exp', 'math.exp'))
-                    # if 'ln' in self.output.get():
-                    #     self.output.set(self.output.get().replace('ln', 'math.log'))
-                    # if 'log10' in self.output.get():
-                    #     self.output.set(self.output.get().replace('log10', 'math.log10'))
-                    # if 'log2' in self.output.get():
-                    #     self.output.set(self.output.get().replace('log2', 'math.log2'))
-                    # if 'sqrt' in self.output.get():
-                    #     self.output.set(self.output.get().replace('sqrt', 'math.pow'))
-
+                    # fix ln to log
+                    if 'ln' in self.output.get():
+                        self.output.set(self.output.get().replace('ln', 'log'))
                     self.output.set(eval(self.output.get()))
                     self.display.config(text=self.output.get())
                     self.history.set(self.history.get()
