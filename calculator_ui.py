@@ -33,13 +33,10 @@ class Calculator_UI(tk.Tk):
         self.frame_f = tk.Frame(self)
         self.function, self.functions_chooser = self.load_functions(['exp', 'ln', 'log10', 'log2', 'sqrt'])
         self.add_function = tk.Button(self.frame_f, text='Add', command=self.handle_functions)
-        self.history_display = tk.Label(self.frame_f, text=self.output.get(), bg='white', justify="left", anchor='e',
-                                        font=('Times New Roman', 20, 'normal'))
 
         # Layout within frame
         self.functions_chooser.pack()
         self.add_function.pack()
-        self.history_display.pack()
 
         # bind
         self.num_keypad.bind(self.handle_digit)
@@ -120,14 +117,13 @@ class Calculator_UI(tk.Tk):
                                                                                'Roman',
                                                                                20,
                                                                                'normal'))
-        new_history.bind('<Button>',self.handle_history)
-        new_output_his.bind('<Button>',self.handle_history)
+        new_history.bind('<Button>', self.handle_history)
+        new_output_his.bind('<Button>', self.handle_history)
         equal_sign = tk.Label(button_frame, text='=', font=('Times New Roman', 20, 'normal'))
         new_history.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-        equal_sign.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-        new_output_his.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-
-        button_frame.pack()
+        new_output_his.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+        equal_sign.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+        button_frame.pack(expand=True, fill=tk.X, anchor=tk.N)
 
     def handle_history(self, event):
         self.output.set(event.widget.cget('text'))
